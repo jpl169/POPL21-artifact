@@ -2,6 +2,7 @@
 #define SOPLEX_WITH_GMP
 #include "IntervalRange.hpp"
 #include "soplex.h"
+#include <memory>
 
 using namespace std;
 using namespace soplex;
