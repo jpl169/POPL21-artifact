@@ -66,11 +66,9 @@ int main(int argc, char** argv) {
     PolySynth<bfloat16, Elementary<bfloat16>> bf16cospi;
     bf16cospi.CalcIntervals();
     
-    printf("FINDING POLYNOMIALS\n");
     bf16cospi.FindPolynomialOnce({0});
     bf16cospi.FindPolynomialsUntil({0, 2, 4, 6}, 16127);
     bf16cospi.FindPolynomials({0});
-    printf("\tCOMPLETED\n\n");
     
     bf16cospi.poly->PrintPiecewiseInfo();
     bf16cospi.PerformErrorAnalysis();

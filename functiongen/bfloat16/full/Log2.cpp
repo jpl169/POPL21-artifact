@@ -58,9 +58,7 @@ int main(int argc, char** argv) {
     PolySynth<bfloat16, Elementary<bfloat16>> bf16log2;
     bf16log2.CalcIntervals();
     
-    printf("FINDING POLYNOMIALS\n");
     bf16log2.FindPolynomials({1, 3, 5});
-    printf("\tCOMPLETED\n\n");
     
     bf16log2.poly->PrintPiecewiseInfo();
     bf16log2.PerformErrorAnalysis();

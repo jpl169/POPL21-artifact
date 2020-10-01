@@ -55,9 +55,7 @@ int main(int argc, char** argv) {
     PolySynth<posit16, Elementary<posit16>> p16log10;
     p16log10.CalcIntervals();
     
-    printf("FINDING POLYNOMIALS\n");
     p16log10.FindPolynomials({1, 3, 5, 7, 9});
-    printf("\tCOMPLETED\n\n");
     
     p16log10.poly->PrintPiecewiseInfo();
     p16log10.PerformErrorAnalysis();

@@ -1,6 +1,4 @@
-objects = 	Log2 \
-		Log2v2 \
-		Exp
+objects = 	Log2
 		
 
 CC=g++

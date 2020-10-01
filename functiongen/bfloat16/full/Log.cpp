@@ -63,9 +63,7 @@ int main(int argc, char** argv) {
     PolySynth<bfloat16, Elementary<bfloat16>> bf16log;
     bf16log.CalcIntervals();
     
-    printf("FINDING POLYNOMIALS\n");
     bf16log.FindPolynomials({1, 3, 5, 7});
-    printf("\tCOMPLETED\n\n");
     
     bf16log.poly->PrintPiecewiseInfo();
     bf16log.PerformErrorAnalysis();

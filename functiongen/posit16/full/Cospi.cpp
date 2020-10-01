@@ -73,11 +73,9 @@ int main(int argc, char** argv) {
     PolySynth<posit16, Elementary<posit16>> p16cospi;
     p16cospi.CalcIntervals();
     
-    printf("FINDING POLYNOMIALS\n");
     p16cospi.FindPolynomialOnce({0});
     p16cospi.FindPolynomialsUntil({0, 2, 4, 6, 8}, 12287);
     p16cospi.FindPolynomials({0});
-    printf("\tCOMPLETED\n\n");
     
     p16cospi.poly->PrintPiecewiseInfo();
     p16cospi.PerformErrorAnalysis();

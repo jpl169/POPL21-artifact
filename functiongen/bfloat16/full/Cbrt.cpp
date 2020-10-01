@@ -71,9 +71,7 @@ int main(int argc, char** argv) {
     PolySynth<bfloat16, Elementary<bfloat16>> bf16cbrt;
     bf16cbrt.CalcIntervals();
     
-    printf("FINDING POLYNOMIALS\n");
     bf16cbrt.FindPolynomials({0, 1, 2, 3, 4, 5, 6});
-    printf("\tCOMPLETED\n\n");
     
     bf16cbrt.poly->PrintPiecewiseInfo();
     bf16cbrt.PerformErrorAnalysis();

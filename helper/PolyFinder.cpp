@@ -54,7 +54,6 @@ unique_ptr<Poly> PolyFinder::SolveForOnePoint(int index) {
 // interval[ub].
 // If successful, returns a pointer to Poly. If unsuccessful, returns NULL.
 unique_ptr<Poly> PolyFinder::LinearSolve(int lb, int ub, vector<int>& power) {
-    printf("[%d, %d]\r", lb, ub);
     fflush(stdout);
     
     if (lb == ub) return SolveForOnePoint(lb);
@@ -201,18 +200,12 @@ unique_ptr<Poly> PolyFinder::RetrieveOnePolynomial(int lowIndex, int maxIndex,
         // If we can't find one, then return Null;
         if (!onePiece) return unique_ptr<Poly>();
         
-        printf("Found a polynomial for indices [%d, %d]. Validating...\r",
-               onePiece->lowIndex, onePiece->highIndex);
-        fflush(stdout);
-
         // Validate that this polynomial does evaluate to the correct output
         if (ValidateAndFixIntervals(onePiece)) {
-            printf("Validation complete.\n");
             return onePiece;
         }
 
         // Otherwise, create polynomial again.
-        printf("Validation failed. Intervals narrowed and retrying now.\n");
         maxIndex = onePiece->highIndex;
     }
 }
@@ -318,7 +311,6 @@ void PolyFinder::PrintPiecewiseInfo() {
     printf("PIECEWISE POLYNOMIAL\n");
     for (auto const& poly : piecewise) {
         poly->PrintPolyInfo();
-        printf("\n");
     }
 }
 

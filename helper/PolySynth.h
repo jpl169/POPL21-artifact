@@ -108,13 +108,11 @@ void PolySynth<T, E>::CalcFullIntervals() {
             fflush(stdout);
         }
     }
-    printf("\n");
 }
 
 template <class T, class E>
 std::map<double, unique_ptr<MapData>>
 PolySynth<T, E>::CalcSomeIntervalsUsingMap(uint32_t lower, uint32_t upper) {
-    printf("Hello!\n");
     std::map<double, unique_ptr<MapData>> intervalMap;
     T x = 0.0;
     
@@ -123,10 +121,6 @@ PolySynth<T, E>::CalcSomeIntervalsUsingMap(uint32_t lower, uint32_t upper) {
         T res;
         double lb, ub, intPart;
         if (E::ComputeSpecialCase(x, res)) {
-            if (i % 100 == 0) {
-                printf("i = %u\r", i);
-                fflush(stdout);
-            }
             continue;
         }
         double reducedX = E::RangeReduction(x, intPart);
@@ -151,14 +145,7 @@ PolySynth<T, E>::CalcSomeIntervalsUsingMap(uint32_t lower, uint32_t upper) {
             temp->ub = ub;
             intervalMap[reducedX] = std::move(temp);
         }
-        
-        if (i % 100 == 0) {
-            printf("i = %u\r", i);
-            fflush(stdout);
-        }
     }
-    printf("\n");
-    printf("Size of the map: %lu\n", intervalMap.size());
     return intervalMap;
 }
 
@@ -246,26 +233,16 @@ bool PolySynth<T, E>::TestAndAddSamplePoints() {
     
     for (; count < upperLimit; count++) {
         Helper<T>::HexToValue(x, count);
-        if (E::ComputeSpecialCase(x, y)) goto TestAndAddSamplePoints_message;
+        if (E::ComputeSpecialCase(x, y)) continue;
         y = ComputeFunction(x);
         my = E::MpfrCalculateFunction(x);
-        if (my != my && y != y) goto TestAndAddSamplePoints_message;
+        if (my != my && y != y) continue;
         
         if (my != y) {
             wrongCount++;
             CalcOneInterval(x);
         }
-        
-        TestAndAddSamplePoints_message:
-        if (count % 100000 == 0) {
-            printf("Adding %lld/%lld values to the sample pool.\r", wrongCount, count);
-            fflush(stdout);
-        }
     }
-    
-    printf("Adding %lld/%lld values to the sample pool\n", wrongCount, count);
-    printf("Total size of sample intervals: %lu\n",
-           intervals->intervals.size());
     
     return wrongCount != 0;
 }
@@ -278,7 +255,6 @@ void PolySynth<T, E>::ResetPolynomials() {
 
 template <class T, class E>
 void PolySynth<T, E>::PerformErrorAnalysis() {
-    printf("STARTING ERROR ANALYSIS\n");
     uint64_t wrongCount = 0, count = 0, upperLimit;
     T x, y, my;
     
@@ -296,16 +272,7 @@ void PolySynth<T, E>::PerformErrorAnalysis() {
             wrongCount++;
             PrintErrorAnalysis(x, my, y);
         }
-        
-        if ((count % 1000000) == 0) {
-            printf("Found %lld/%lld values that did not calculate correctly\r",
-                   wrongCount, count);
-            fflush(stdout);
-        }
     }
-    
-    printf("FOUND %lld/%lld VALUES THAT DID NOT CALCULATE CORRECTLY\n",
-           wrongCount, count);
 }
 
 template <class T, class E>
