@@ -3,6 +3,7 @@
 #include "IntervalRange.hpp"
 #include "soplex.h"
 #include <memory>
+#include <algorithm>
 
 using namespace std;
 using namespace soplex;
