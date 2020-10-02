@@ -1,8 +1,8 @@
 CC = g++
 
 bf16FNames = log log2 log10 sinpi cospi sqrt cbrt expv2 exp2v2 exp10v2
-p16FNames = cospi log log2 log10 sinpi sqrt exp exp2 exp10
-floatFNames = log2small log2
+p16FNames = cospi log log2 log10 sinpi sqrt
+floatFNames = log2
 
 bf16SrcDir = source/bfloat16
 bf16ObjDir = obj/bfloat16

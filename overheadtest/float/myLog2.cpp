@@ -6,7 +6,7 @@
 float myLog2Test(float x, unsigned long long* time) {
     unsigned int dummy;
     unsigned long long t1 = __rdtscp(&dummy);
-    float result = mylog2v2(x);
+    float result = mylog2(x);
     unsigned long long t2 = __rdtscp(&dummy);
     *time += (t2 - t1);
     return result;
@@ -44,19 +44,9 @@ int main(int argc, char** argv) {
         float bres = myLog2Test(x, &myTime);
         float bfy = mlibLog2Test(x, &mlibTime);
         float bdy = doubleLog2Test(x, &doubleTime);
-        if (i != 0 && i % 10000000 == 0) {
-            printf("i = %lld\n", i);
-            printf("My Average time = %llu cycles\n", myTime / i);
-            printf("Fl Average time = %llu cycles\n", mlibTime / i);
-            printf("Db Average time = %llu cycles\n", doubleTime / i);
-            printf("Speedup compared to float: %.5e\n", (double)mlibTime / (double)myTime);
-            printf("Speedup compared to double: %.5e\n", (double)doubleTime / (double)myTime);
-        }
     }
 
-    printf("My Average time = %llu cycles\n", myTime / 0x100000000);
-    printf("Fl Average time = %llu cycles\n", mlibTime / 0x100000000);
-    printf("Db Average time = %llu cycles\n", doubleTime / 0x100000000);
-    printf("Speedup compared to float: %.5e\n", (double)mlibTime / (double)myTime);
-    printf("Speedup compared to double: %.5e\n", (double)doubleTime / (double)myTime);
+    printf("Speedup of interval computation\n");
+    printf("Over Float: %.5f\n", 1.0 * mlibTime / myTime);
+    printf("Over Double: %.5f\n\n", 1.0 * doubleTime / myTime);
 }

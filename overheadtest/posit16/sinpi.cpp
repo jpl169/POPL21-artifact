@@ -32,9 +32,6 @@ int main(int argc, char** argv) {
         }
     }
     
-    printf("Our time average          : %llu\n", ourTime / count);
-    printf("Our internal time average : %llu\n", ourInternalTime / count);
-    printf("Minefield time average    : %llu\n", minefieldTime / count);
-    printf("Our speedup: %.50e\n", 1.0 * minefieldTime / ourTime);
-    printf("Our internal speedup: %.50e\n", 1.0 * minefieldTime / ourInternalTime);
+    printf("Speedup over SoftPosit-Math: %.5f\n", 1.0 * minefieldTime / ourInternalTime);
+    return 0;
 }

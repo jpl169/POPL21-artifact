@@ -1,18 +1,40 @@
+OURvsSPM=""
+
 echo "COSPI"
-./cospi
+OUTPUT=$(./cospi)
+echo "${OUTPUT}"
+NUMBER=$(echo "${OUTPUT}" | grep -Eo '[+-]?[0-9]+([.][0-9]+)?')
+OURvsSPM+="${NUMBER} "
+echo ""
+
 echo "LOG"
-./log
+OUTPUT=$(./log)
+echo "${OUTPUT}"
+NUMBER=$(echo "${OUTPUT}" | grep -Eo '[+-]?[0-9]+([.][0-9]+)?')
+OURvsSPM+="${NUMBER} "
+echo ""
+
 echo "LOG2"
-./log2
-echo "LOG10"
-./log10
+OUTPUT=$(./log2)
+echo "${OUTPUT}"
+NUMBER=$(echo "${OUTPUT}" | grep -Eo '[+-]?[0-9]+([.][0-9]+)?')
+OURvsSPM+="${NUMBER} "
+echo ""
+
 echo "SINPI"
-./sinpi
+OUTPUT=$(./sinpi)
+echo "${OUTPUT}"
+NUMBER=$(echo "${OUTPUT}" | grep -Eo '[+-]?[0-9]+([.][0-9]+)?')
+OURvsSPM+="${NUMBER} "
+echo ""
+
 echo "SQRT"
-./sqrt
-echo "EXP"
-./exp
-echo "EXP2"
-./exp2
-echo "EXP10"
-./exp10
+OUTPUT=$(./sqrt)
+echo "${OUTPUT}"
+NUMBER=$(echo "${OUTPUT}" | grep -Eo '[+-]?[0-9]+([.][0-9]+)?')
+OURvsSPM+="${NUMBER}"
+echo ""
+
+echo "AVERAGE:"
+AVERAGE=$(echo "(${OURvsSPM// /+}) / 5.0" | bc -l)
+echo "Speedup over SoftPosit-Math: ${AVERAGE}"
