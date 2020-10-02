@@ -10,7 +10,7 @@ CC=g++
 
 INCLUDES= -I$(SOFTPOSITPATH)/source/include -I$(SOPLEXPATH)/src
 CPP_FLAGS= -fvisibility=hidden -fvisibility-inlines-hidden --std=c++17 -I../../../helper/
-LD_FLAGS= $(SOFTPOSITPATH)/build/Linux-x86_64-GCC/softposit.a $(SOPLEXPATH)/build/lib/libsoplex.a -lmpfr -lgmp  -lz -lm
+LD_FLAGS= $(SOFTPOSITPATH)/build/Linux-x86_64-GCC/softposit.a $(SOPLEXPATH)/build/lib/libsoplex.a -lmpfr -lgmp -lm
 
 all: $(objects)
 	

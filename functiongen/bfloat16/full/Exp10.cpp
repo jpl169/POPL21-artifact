@@ -55,7 +55,7 @@ double Elementary<T>::ReverseRangePropagation(double y, double modifier) {
 }
 
 template <class T>
-bool Elementary<T>::Elementary<T>::FlipLbAndUb(double y) {
+bool Elementary<T>::FlipLbAndUb(double y) {
     return false;
 }
 
