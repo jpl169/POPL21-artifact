@@ -1,14 +1,14 @@
 #!/bin/bash
 
-echo -e "\033[1mLOG2\033[0m"
+echo -e "LOG2"
 ./Log2
-echo -e "\033[1mLOG\033[0m"
+echo -e "LOG"
 ./Log
-echo -e "\033[1mLOG10\033[0m"
+echo -e "LOG10"
 ./Log10
-echo -e "\033[1mSINPI\033[0m"
+echo -e "SINPI"
 ./Sinpi
-echo -e "\033[1mCOSPI\033[0m"
+echo -e "COSPI"
 ./Cospi
-echo -e "\033[1mSQRT\033[0m"
+echo -e "SQRT"
 ./Sqrt

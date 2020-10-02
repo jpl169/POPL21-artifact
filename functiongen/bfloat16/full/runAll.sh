@@ -1,22 +1,22 @@
 #!/bin/bash
 
-echo -e "\033[1mEXP FUNCTION\033[0m"
+echo -e "EXP FUNCTION"
 ./Exp
-echo -e "\033[1mEXP2 FUNCTION\033[0m"
+echo -e "EXP2 FUNCTION"
 ./Exp2
-echo -e "\033[1mEXP10 FUNCTION\033[0m"
+echo -e "EXP10 FUNCTION"
 ./Exp10
-echo -e "\033[1mLOG FUNCTION\033[0m"
+echo -e "LOG FUNCTION"
 ./Log
-echo -e "\033[1mLOG2 FUNCTION\033[0m"
+echo -e "LOG2 FUNCTION"
 ./Log2
-echo -e "\033[1mLOG10 FUNCTION\033[0m"
+echo -e "LOG10 FUNCTION"
 ./Log10
-echo -e "\033[1mSINPI FUNCTION\033[0m"
+echo -e "SINPI FUNCTION"
 ./Sinpi
-echo -e "\033[1mCOSPI FUNCTION\033[0m"
+echo -e "COSPI FUNCTION"
 ./Cospi
-echo -e "\033[1mCBRT FUNCTION\033[0m"
+echo -e "CBRT FUNCTION"
 ./Cbrt
-echo -e "\033[1mSQRT FUNCTION\033[0m"
+echo -e "SQRT FUNCTION"
 ./Sqrt
