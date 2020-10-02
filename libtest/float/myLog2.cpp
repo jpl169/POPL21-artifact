@@ -2,7 +2,6 @@
 #include "float_math.h"
 #include <stdio.h>
 #include <math.h>
-#include <x86intrin.h>
 
 #define MPFR_PREC 24
 mpfr_t mval;
@@ -53,42 +52,27 @@ float MpfrCalculateLog2(float x) {
     }
 }
 
-float myLog2Test(float x, unsigned long long* time) {
-    unsigned int dummy;
-    unsigned long long t1 = __rdtscp(&dummy);
+float myLog2Test(float x) {
     float result = mylog2v2(x);
-    unsigned long long t2 = __rdtscp(&dummy);
-    *time += (t2 - t1);
     return result;
 }
 
-float mlibLog2Test(float x, unsigned long long* time) {
-    unsigned int dummy;
-    unsigned long long t1 = __rdtscp(&dummy);
+float mlibLog2Test(float x) {
     float result = log2f(x);
-    unsigned long long t2 = __rdtscp(&dummy);
-    *time += (t2 - t1);
     return result;
 }
 
-float doubleLog2Test(float x, unsigned long long* time) {
-    unsigned int dummy;
-    unsigned long long t1 = __rdtscp(&dummy);
+float doubleLog2Test(float x) {
     float result = log2((double)x);
-    unsigned long long t2 = __rdtscp(&dummy);
-    *time += (t2 - t1);
     return result;
 }
 
 int main(int argc, char** argv) {
     mpfr_init2(mval, MPFR_PREC);
-    int wrongFloat16Count = 0;
+    int wrongFloat32Count = 0;
     int wrongFloatCount = 0;
     int wrongDoubleCount = 0;
     unsigned long long count = 0;
-    unsigned long long myTime = 0;
-    unsigned long long mlibTime = 0;
-    unsigned long long doubleTime = 0;
 
     float x;
     floatX xbase;
@@ -96,34 +80,23 @@ int main(int argc, char** argv) {
         xbase.x = count;
         x = xbase.f;
         
-        float bres = myLog2Test(x, &myTime);
+        float bres = myLog2Test(x);
         float bmy = MpfrCalculateLog2(x);
-        float bfy = mlibLog2Test(x, &mlibTime);
-        float bdy = doubleLog2Test(x, &doubleTime);
+        float bfy = mlibLog2Test(x);
+        float bdy = doubleLog2Test(x);
         
         // if bres is nan and bmy is nan, continue
         if (bres != bres && bmy != bmy && bfy != bfy && bdy != bdy) continue;
-        if (bres != bmy) wrongFloat16Count++;
+        if (bres != bmy) wrongFloat32Count++;
         if (bfy != bmy) wrongFloatCount++;
         if (bdy != bmy) wrongDoubleCount++;
-        
-        if (count % 100000 == 0 && count != 0) {
-            printf("%lld\n", count);
-            printf("Found %d/%llu values that did not calculate correctly\n", wrongFloat16Count, count);
-            printf("Average time = %llu cycles\n", myTime / count);
-            printf("Float computes %d/%llu values incorrectly\n", wrongFloatCount, count);
-            printf("Average time = %llu cycles\n", mlibTime / count);
-            printf("Double computes %d/%llu values incorrectly\n", wrongDoubleCount, count);
-            printf("Average time = %llu cycles\n\n", doubleTime / count);
-        }
     }
     
-    printf("TOTAL\n");
-    printf("Found %d/%llu values that did not calculate correctly\n", wrongFloat16Count, count);
-    printf("Average time = %llu cycles\n", myTime / count);
-    printf("Float computes %d/%llu values incorrectly\n", wrongFloatCount, count);
-    printf("Average time = %llu cycles\n", mlibTime / count);
-    printf("Double computes %d/%llu values incorrectly\n", wrongDoubleCount, count);
-    printf("Average time = %llu cycles\n", doubleTime / count);
+    if (wrongFloat32Count == 0) printf("Function returns correct values for all inputs\n");
+    else printf("Found %d/%llu values that did not calculate correctly\n", wrongFloat32Count, count);
+    if (wrongFloatCount > 0) printf("Using Glibc's float mlib computes %d/%llu values incorrectly\n", wrongFloatCount, count);
+    if (wrongDoubleCount > 0) printf("Using Glibc's double mlib computes %d/%llu values incorrectly\n", wrongDoubleCount, count);
+    
     mpfr_clear(mval);
+    return 0;
 }

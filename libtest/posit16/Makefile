@@ -1,4 +1,4 @@
-objects = log2 log log10 sinpi cospi sqrt exp exp2 exp10
+objects = log2 log log10 sinpi cospi sqrt
 
 all: $(objects)
 

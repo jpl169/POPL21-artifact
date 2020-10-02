@@ -1,3 +1,3 @@
 #!/bin/bash
-echo "\nLOG2"
+echo "LOG2"
 ./myLog2

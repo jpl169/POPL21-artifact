@@ -83,8 +83,9 @@ int main(int argc, char** argv) {
         if (!p16_eq(bres, mineRes)) wrongMinefieldCount++;
     }
     
-    printf("Found %d/%d values that did not calculate correctly\n", wrongDoubleCount, count);
-    printf("Found %d/%d values that does not agree with minefield\n", wrongMinefieldCount, count);
+    if (wrongDoubleCount == 0) printf("Function returns correct values for all inputs\n");
+    else printf("Found %d/%d values that did not calculate correctly\n", wrongDoubleCount, count);
+    if (wrongMinefieldCount > 0) printf("Posit-Math's mlib computes %d/%d values incorrectly\n", wrongMinefieldCount, count);
     
     mpfr_clear(mval);
 }

@@ -81,11 +81,9 @@ int main(int argc, char** argv) {
             if (x.val == 0xFFFF) break;
         }
     }
-    printf("Average time for my function     = %llu cycles\n", myTime / count);
-    printf("Average time for float function  = %llu cycles\n", mlibTime / count);
-    printf("Average time for double function = %llu cycles\n", doubleTime / count);
-    printf("Average measured over %llu experiments\n", count);
-    
+    printf("Speedup of elementary function\n");
+    printf("Over Float: %.5e\n", 1.0 * mlibTime / myTime);
+    printf("Over Double: %.5e\n", 1.0 * doubleTime / myTime);
     
     count = 0;
     myTime = 0;
@@ -102,11 +100,9 @@ int main(int argc, char** argv) {
             if (x.val == 0xFFFF) break;
         }
     }
-    printf("\n\nInternal Test\n");
-    printf("Average time for my function     = %llu cycles\n", myTime / count);
-    printf("Average time for float function  = %llu cycles\n", mlibTime / count);
-    printf("Average time for double function = %llu cycles\n", doubleTime / count);
-    printf("\n\n");
+    printf("Speedup of interval computation\n");
+    printf("Over Float: %.5e\n", 1.0 * mlibTime / myTime);
+    printf("Over Double: %.5e\n\n", 1.0 * doubleTime / myTime);
     
-    
+    return 0;
 }

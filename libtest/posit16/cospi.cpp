@@ -79,17 +79,13 @@ int main(int argc, char** argv) {
         posit16_t bmy = MpfrCalculateCospi(x);
         posit16_t mineRes = p16_cospi(x);
         
-        if (!p16_eq(bres, bmy)) {
-            wrongDoubleCount++;
-            printf("x    = %.100e\n", convertP16ToDouble(x));
-            printf("bres = %.100e\n", convertP16ToDouble(bres));
-            printf("bmy  = %.100e\n", convertP16ToDouble(bmy));
-        }
+        if (!p16_eq(bres, bmy)) wrongDoubleCount++;
         if (!p16_eq(bres, mineRes)) wrongMinefieldCount++;
     }
     
-    printf("Found %d/%d values that did not calculate correctly\n", wrongDoubleCount, count);
-    printf("Found %d/%d values that does not agree with minefield\n", wrongMinefieldCount, count);
+    if (wrongDoubleCount == 0) printf("Function returns correct values for all inputs\n");
+    else printf("Found %d/%d values that did not calculate correctly\n", wrongDoubleCount, count);
+    if (wrongMinefieldCount > 0) printf("Posit-Math's mlib computes %d/%d values incorrectly\n", wrongMinefieldCount, count);
     
     mpfr_clear(mval);
 }

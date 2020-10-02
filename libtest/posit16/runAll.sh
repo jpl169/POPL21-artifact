@@ -10,9 +10,3 @@ echo "SINPI"
 ./sinpi
 echo "SQRT"
 ./sqrt
-echo "EXP"
-./exp
-echo "EXP2"
-./exp
-echo "EXP10"
-./exp

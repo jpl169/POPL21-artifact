@@ -2,7 +2,6 @@
 #include "bfloat16_math.hpp"
 #include "bfloat16.hpp"
 #include <math.h>
-#include <x86intrin.h>
 
 #define MPFR_PREC 2000
 mpfr_t mval;
@@ -53,30 +52,18 @@ double MpfrCalculateExp(bfloat16 x) {
     }
 }
 
-bfloat16 myExpTest(bfloat16 x, unsigned long long& time) {
-    unsigned int dummy;
-    unsigned long long t1 = __rdtscp(&dummy);
+bfloat16 myExpTest(bfloat16 x) {
     bfloat16 result = myexpv2(x);
-    unsigned long long t2 = __rdtscp(&dummy);
-    time += (t2 - t1);
     return result;
 }
 
-bfloat16 mlibExpTest(bfloat16 x, unsigned long long& time) {
-    unsigned int dummy;
-    unsigned long long t1 = __rdtscp(&dummy);
+bfloat16 mlibExpTest(bfloat16 x) {
     bfloat16 result = expf((float)x);
-    unsigned long long t2 = __rdtscp(&dummy);
-    time += (t2 - t1);
     return result;
 }
 
-bfloat16 doubleExpTest(bfloat16 x, unsigned long long& time) {
-    unsigned int dummy;
-    unsigned long long t1 = __rdtscp(&dummy);
+bfloat16 doubleExpTest(bfloat16 x) {
     bfloat16 result = exp((double)x);
-    unsigned long long t2 = __rdtscp(&dummy);
-    time += (t2 - t1);
     return result;
 }
 
@@ -86,35 +73,25 @@ int main(int argc, char** argv) {
     int wrongFloatCount = 0;
     int wrongDoubleCount = 0;
     unsigned long long count = 0;
-    unsigned long long myTime = 0;
-    unsigned long long mlibTime = 0;
-    unsigned long long doubleTime = 0;
 
     bfloat16 x = 0.0;
     for (; count < 0x10000; count++) {
         x.val = count;
-        bfloat16 bres = myExpTest(x, myTime);
+        bfloat16 bres = myExpTest(x);
         bfloat16 bmy = MpfrCalculateExp(x);
-        bfloat16 bfy = mlibExpTest(x, mlibTime);
-        bfloat16 bdy = doubleExpTest(x, doubleTime);
+        bfloat16 bfy = mlibExpTest(x);
+        bfloat16 bdy = doubleExpTest(x);
         
         // if bres is nan and bmy is nan, continue
         if (bres != bres && bmy != bmy && bfy != bfy && bdy != bdy) continue;
-        if (bres != bmy) {
-            printf("x    = %.100e\n", (double)x);
-            printf("bres = %.100e (%x)\n", (double)bres, bres.val);
-            printf("bmy  = %.100e (%x)\n", (double)bmy, bmy.val);
-            wrongBfloatCount++;
-        }
+        if (bres != bmy) wrongBfloatCount++;
         if (bfy != bmy) wrongFloatCount++;
         if (bdy != bmy) wrongDoubleCount++;
     }
     
-    printf("Found %d/%llu values that did not calculate correctly\n", wrongBfloatCount, count);
-    printf("Average time = %llu cycles\n", myTime / count);
-    printf("Float computes %d/%llu values incorrectly\n", wrongFloatCount, count);
-    printf("Average time = %llu cycles\n", mlibTime / count);
-    printf("Double computes %d/%llu values incorrectly\n", wrongDoubleCount, count);
-    printf("Average time = %llu cycles\n", doubleTime / count);
+    if (wrongBfloatCount == 0) printf("Function returns correct values for all inputs\n");
+    else printf("Found %d/%llu values that did not calculate correctly\n", wrongBfloatCount, count);
+    if (wrongFloatCount > 0) printf("Using Glibc's float mlib computes %d/%llu values incorrectly\n", wrongFloatCount, count);
+    if (wrongDoubleCount > 0) printf("Using Glibc's double mlib computes %d/%llu values incorrectly\n", wrongDoubleCount, count);
     mpfr_clear(mval);
 }

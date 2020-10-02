@@ -72,7 +72,8 @@ int main(int argc, char** argv) {
         if (!p16_eq(bres, bmy)) wrongDoubleCount++;
     }
     
-    printf("Found %d/%d values that did not calculate correctly\n", wrongDoubleCount, count);
+    if (wrongDoubleCount == 0) printf("Function returns correct values for all inputs\n");
+    else printf("Found %d/%d values that did not calculate correctly\n", wrongDoubleCount, count);
     
     mpfr_clear(mval);
 }

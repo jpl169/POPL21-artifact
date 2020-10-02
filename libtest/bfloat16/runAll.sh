@@ -1,21 +1,21 @@
 #!/bin/bash
 echo "CBRT"
 ./myCbrt
-echo "\nCOSPI"
+echo "COSPI"
 ./myCospi
-echo "\nEXP"
+echo "EXP"
 ./myExpv2
-echo "\nEXP2"
+echo "EXP2"
 ./myExp2v2
-echo "\nEXP10"
+echo "EXP10"
 ./myExp10v2
-echo "\nLOG"
+echo "LOG"
 ./myLog
-echo "\nLOG2"
+echo "LOG2"
 ./myLog2
-echo "\nLOG10"
+echo "LOG10"
 ./myLog10
-echo "\nSINPI"
+echo "SINPI"
 ./mySinpi
-echo "\nSQRT"
+echo "SQRT"
 ./mySqrt
