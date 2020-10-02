@@ -118,7 +118,7 @@ echo "Speedup of elementary function"
 AVERAGE1=$(echo "(${ELEMvsFLOAT// /+}) / 10.0" | bc -l)
 echo "Over Float: ${AVERAGE1}"
 AVERAGE2=$(echo "(${ELEMvsDOUBLE// /+}) / 10.0" | bc -l)
-echo "Over Double: ${AVERAGE1}"
+echo "Over Double: ${AVERAGE2}"
 echo "Speedup of interval computation"
 AVERAGE3=$(echo "(${INTERNvsFLOAT// /+}) / 10.0" | bc -l)
 echo "Over Float: ${AVERAGE3}"

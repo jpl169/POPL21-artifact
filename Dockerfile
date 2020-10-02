@@ -18,14 +18,11 @@ RUN apt-get update && \
     apt-get install -yq build-essential \
     	    	        cmake \
     	    	    	git \
-			jgraph \
 			libgmp3-dev \
 			libmpfr-dev \
-			python \
-			python3 \
-			wget \
 			zlib1g \
-			zlib1g-dev
+			zlib1g-dev \
+			bc
 
 WORKDIR /home
 
@@ -50,9 +47,7 @@ ENV SOPLEXPATH=/home/soplex-4.0.1/
 RUN git clone https://gitlab.com/cerlane/SoftPosit.git && \
     cd SoftPosit/build/Linux-x86_64-GCC/ && \
     make && \
-    cd .. && \
-    cd .. && \
-    cd ..
+    cd ../../..
 
 ENV SOFTPOSITPATH=/home/SoftPosit/
 
