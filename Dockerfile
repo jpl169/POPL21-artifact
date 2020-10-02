@@ -23,7 +23,9 @@ RUN apt-get update && \
 			libmpfr-dev \
 			python \
 			python3 \
-			wget
+			wget \
+			zlib1g \
+			zlib1g-dev
 
 WORKDIR /home
 

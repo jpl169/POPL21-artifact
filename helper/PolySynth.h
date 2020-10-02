@@ -3,6 +3,7 @@
 #include "IntervalRange.hpp"
 #include <map>
 #include <memory>
+#include <inttypes.h>
 
 #define PI_DOUBLE 3.1415926535897932384626433832795028841971693993751058209749445923078164062
 
@@ -333,8 +334,8 @@ void PolySynth<T, E>::IntervalSanityCheck(T x, T by, double lb,
         printf("correct y  = %.30e (%x)\n",
                Helper<T>::ConvertToDouble(by),
                Helper<T>::GetHexRep(by));
-        printf("lb         = %.30e (%llx)\n", lb, *((uint64_t *)&lb));
-        printf("ub         = %.30e (%llx)\n", ub, *((uint64_t *)&ub));
+        printf("lb         = %.30e (%" PRIx64 ")\n", lb, *((uint64_t *)&lb));
+        printf("ub         = %.30e (%" PRIx64 ")\n", ub, *((uint64_t *)&ub));
         printf("rounded lb = %.30e (%x)\n",
                Helper<T>::ConvertToDouble(blb),
                Helper<T>::GetHexRep(blb));
