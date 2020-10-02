@@ -1,30 +1,42 @@
+#include <math.h>
 #include "bfloat16.hpp"
 #include "bfloat16_math.hpp"
-#include <math.h>
 #include <x86intrin.h>
 
-bfloat16 myExpTest(bfloat16 x, unsigned long long& time) {
+#ifdef __APPLE__
+#define exp10fFunc __exp10f
+#else
+#define exp10fFunc exp10f
+#endif
+
+#ifdef __APPLE__
+#define exp10Func __exp10
+#else
+#define exp10Func exp10
+#endif
+
+bfloat16 myExp10Test(bfloat16 x, unsigned long long& time) {
     unsigned int dummy;
     unsigned long long t1 = __rdtscp(&dummy);
-    bfloat16 result = myexpv2(x);
+    bfloat16 result = myexp10(x);
     unsigned long long t2 = __rdtscp(&dummy);
     time += (t2 - t1);
     return result;
 }
 
-bfloat16 mlibExpTest(bfloat16 x, unsigned long long& time) {
+bfloat16 mlibExp10Test(bfloat16 x, unsigned long long& time) {
     unsigned int dummy;
     unsigned long long t1 = __rdtscp(&dummy);
-    bfloat16 result = expf((float)x);
+    bfloat16 result = exp10fFunc((float)x);
     unsigned long long t2 = __rdtscp(&dummy);
     time += (t2 - t1);
     return result;
 }
 
-bfloat16 doubleExpTest(bfloat16 x, unsigned long long& time) {
+bfloat16 doubleExp10Test(bfloat16 x, unsigned long long& time) {
     unsigned int dummy;
     unsigned long long t1 = __rdtscp(&dummy);
-    bfloat16 result = exp((double)x);
+    bfloat16 result = exp10Func((double)x);
     unsigned long long t2 = __rdtscp(&dummy);
     time += (t2 - t1);
     return result;
@@ -32,31 +44,31 @@ bfloat16 doubleExpTest(bfloat16 x, unsigned long long& time) {
 
 
 
-bfloat16 myExpInternalTest(bfloat16 x, unsigned long long& time) {
+bfloat16 myExp10InternalTest(bfloat16 x, unsigned long long& time) {
     unsigned int dummy;
     float input = (float)x;
     unsigned long long t1 = __rdtscp(&dummy);
-    double result = myexpInternalv2(input);
+    double result = myexp10Internal(input);
     unsigned long long t2 = __rdtscp(&dummy);
     time += (t2 - t1);
     return result;
 }
 
-bfloat16 mlibExpInternalTest(bfloat16 x, unsigned long long& time) {
+bfloat16 mlibExp10InternalTest(bfloat16 x, unsigned long long& time) {
     unsigned int dummy;
     float input = (float)x;
     unsigned long long t1 = __rdtscp(&dummy);
-    float result = expf(input);
+    float result = exp10fFunc(input);
     unsigned long long t2 = __rdtscp(&dummy);
     time += (t2 - t1);
     return result;
 }
 
-bfloat16 doubleExpInternalTest(bfloat16 x, unsigned long long& time) {
+bfloat16 doubleExp10InternalTest(bfloat16 x, unsigned long long& time) {
     unsigned int dummy;
     double input = (double)x;
     unsigned long long t1 = __rdtscp(&dummy);
-    double result = exp(input);
+    double result = exp10Func(input);
     unsigned long long t2 = __rdtscp(&dummy);
     time += (t2 - t1);
     return result;
@@ -74,9 +86,9 @@ int main(int argc, char** argv) {
     for (int i = 0; i < 30; i++) {
         for (x.val = 0; ; x.val++) {
             count++;
-            bfloat16 bres = myExpTest(x, myTime);
-            bfloat16 bfy = mlibExpTest(x, mlibTime);
-            bfloat16 bdy = doubleExpTest(x, doubleTime);
+            bfloat16 bres = myExp10Test(x, myTime);
+            bfloat16 bfy = mlibExp10Test(x, mlibTime);
+            bfloat16 bdy = doubleExp10Test(x, doubleTime);
             if (x.val == 0xFFFF) break;
         }
     }
@@ -89,14 +101,14 @@ int main(int argc, char** argv) {
     myTime = 0;
     mlibTime = 0;
     doubleTime = 0;
-
+    
     x = 0.0;
     for (int i = 0; i < 30; i++) {
         for (x.val = 0; ; x.val++) {
             count++;
-            bfloat16 bres = myExpInternalTest(x, myTime);
-            bfloat16 bfy = mlibExpInternalTest(x, mlibTime);
-            bfloat16 bdy = doubleExpInternalTest(x, doubleTime);
+            bfloat16 bres = myExp10InternalTest(x, myTime);
+            bfloat16 bfy = mlibExp10InternalTest(x, mlibTime);
+            bfloat16 bdy = doubleExp10InternalTest(x, doubleTime);
             if (x.val == 0xFFFF) break;
         }
     }

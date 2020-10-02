@@ -1,38 +1,37 @@
 #!/bin/bash
 ResultPath="$( cd "$(dirname "$0")" >/dev/null 2>&1 ; pwd -P )"
-ResultPath="${ResultPath}/OverheadTestResult.txt"
+B16_ResultPath="${ResultPath}/B16OvhdRslt.txt"
+P16_ResultPath="${ResultPath}/P16OvhdRslt.txt"
+F32_ResultPath="${ResultPath}/F32OvhdRslt.txt"
 
 echo -e "\033[1mBuilding math libraries\033[0m"
 make -s clean
 make -s
 
 echo -e "\033[1mMeasuring bfloat16 math library speed\033[0m"
-echo -e "Measuring bfloat16 math library speed" >> $ResultPath
 cd overheadtest/bfloat16
 make -s clean
 make -s
-./runAll.sh >> $ResultPath
+./runAll.sh > $B16_ResultPath
 make -s clean
-echo -e "" >> $ResultPath
-echo -e "" >> $ResultPath
+cd ../..
+python3 bfloatOverheadFull.py
+python3 bfloatOverheadInternal.py
 
 echo -e "\033[1mMeasuring posit16 math library speed\033[0m"
-echo -e "Measuring posit16 math library speed" >> $ResultPath
-cd ../posit16
+cd overheadtest/posit16
 make -s clean
 make -s
-./runAll.sh >> $ResultPath
+./runAll.sh > $P16_ResultPath
 make -s clean
-echo -e "" >> $ResultPath
-echo -e "" >> $ResultPath
+cd ../..
 
 echo -e "\033[1mMeasuring float math library speed\033[0m"
-echo -e "Measuring float math library speed" >> $ResultPath
 echo -e "This make 10-20 minutes to complete"
-cd ../float
+cd overheadtest/float
 make -s clean
 make -s
-./runAll.sh >> $ResultPath
+./runAll.sh > $F32_ResultPath
 make -s clean
 
 cd ../..

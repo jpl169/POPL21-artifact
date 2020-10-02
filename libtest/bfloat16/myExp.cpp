@@ -53,7 +53,7 @@ double MpfrCalculateExp(bfloat16 x) {
 }
 
 bfloat16 myExpTest(bfloat16 x) {
-    bfloat16 result = myexpv2(x);
+    bfloat16 result = myexp(x);
     return result;
 }
 

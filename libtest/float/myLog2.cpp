@@ -53,7 +53,7 @@ float MpfrCalculateLog2(float x) {
 }
 
 float myLog2Test(float x) {
-    float result = mylog2v2(x);
+    float result = mylog2(x);
     return result;
 }
 

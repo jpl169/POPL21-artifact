@@ -4,11 +4,11 @@ echo "CBRT"
 echo "COSPI"
 ./myCospi
 echo "EXP"
-./myExpv2
+./myExp
 echo "EXP2"
-./myExp2v2
+./myExp2
 echo "EXP10"
-./myExp10v2
+./myExp10
 echo "LOG"
 ./myLog
 echo "LOG2"

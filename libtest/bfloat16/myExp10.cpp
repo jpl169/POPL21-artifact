@@ -6,9 +6,21 @@
 #define MPFR_PREC 2000
 mpfr_t mval;
 
-double MpfrCalculateExp2(bfloat16 x) {
+#ifdef __APPLE__
+#define exp10fFunc __exp10f
+#else
+#define exp10fFunc exp10f
+#endif
+
+#ifdef __APPLE__
+#define exp10Func __exp10
+#else
+#define exp10Func exp10
+#endif
+
+double MpfrCalculateExp10(bfloat16 x) {
     mpfr_set_d(mval, (double)x, MPFR_RNDN);
-    mpfr_exp2(mval, mval, MPFR_RNDN);
+    mpfr_exp10(mval, mval, MPFR_RNDN);
     double retVal = mpfr_get_d(mval, MPFR_RNDN);
 
     if (retVal == 0) return 0.0;
@@ -52,18 +64,18 @@ double MpfrCalculateExp2(bfloat16 x) {
     }
 }
 
-bfloat16 myExp2Test(bfloat16 x) {
-    bfloat16 result = myexp2v2(x);
+bfloat16 myExp10Test(bfloat16 x) {
+    bfloat16 result = myexp10(x);
     return result;
 }
 
-bfloat16 mlibExp2Test(bfloat16 x) {
-    bfloat16 result = exp2f((float)x);
+bfloat16 mlibExp10Test(bfloat16 x) {
+    bfloat16 result = exp10fFunc((float)x);
     return result;
 }
 
-bfloat16 doubleExp2Test(bfloat16 x) {
-    bfloat16 result = exp2((double)x);
+bfloat16 doubleExp10Test(bfloat16 x) {
+    bfloat16 result = exp10Func((double)x);
     return result;
 }
 
@@ -77,10 +89,10 @@ int main(int argc, char** argv) {
     bfloat16 x = 0.0;
     for (; count < 0x10000; count++) {
         x.val = count;
-        bfloat16 bres = myExp2Test(x);
-        bfloat16 bmy = MpfrCalculateExp2(x);
-        bfloat16 bfy = mlibExp2Test(x);
-        bfloat16 bdy = doubleExp2Test(x);
+        bfloat16 bres = myExp10Test(x);
+        bfloat16 bmy = MpfrCalculateExp10(x);
+        bfloat16 bfy = mlibExp10Test(x);
+        bfloat16 bdy = doubleExp10Test(x);
         
         // if bres is nan and bmy is nan, continue
         if (bres != bres && bmy != bmy && bfy != bfy && bdy != bdy) continue;

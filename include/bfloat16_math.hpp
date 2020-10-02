@@ -13,9 +13,9 @@ typedef union {
     unsigned int x;
 } fx;
 
-bfloat16 myexpv2(bfloat16);
-bfloat16 myexp2v2(bfloat16);
-bfloat16 myexp10v2(bfloat16);
+bfloat16 myexp(bfloat16);
+bfloat16 myexp2(bfloat16);
+bfloat16 myexp10(bfloat16);
 bfloat16 mylog(bfloat16);
 bfloat16 mylog2(bfloat16);
 bfloat16 mylog10(bfloat16);
@@ -24,9 +24,9 @@ bfloat16 mycospi(bfloat16);
 bfloat16 mysqrt(bfloat16);
 bfloat16 mycbrt(bfloat16);
 
-double myexpInternalv2(float);
-double myexp2Internalv2(float);
-double myexp10Internalv2(float);
+double myexpInternal(float);
+double myexp2Internal(float);
+double myexp10Internal(float);
 double mylogInternal(float);
 double mylog2Internal(float);
 double mylog10Internal(float);

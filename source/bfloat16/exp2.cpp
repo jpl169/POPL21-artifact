@@ -1,7 +1,7 @@
 #include "bfloat16_math.hpp"
 
 
-bfloat16 myexp2v2(bfloat16 x) {
+bfloat16 myexp2(bfloat16 x) {
     float fInput = (float)x;
     
     // Take care of 0 case
@@ -48,7 +48,7 @@ bfloat16 myexp2v2(bfloat16 x) {
     return ldexp(y, intPart);
 }
 
-double myexp2Internalv2(float x) {
+double myexp2Internal(float x) {
     fx input;
     input.f = x;
     
