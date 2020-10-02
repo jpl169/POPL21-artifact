@@ -84,8 +84,8 @@ int main(int argc, char** argv) {
         }
     }
     printf("Speedup of elementary function\n");
-    printf("Over Float: %.5e\n", 1.0 * mlibTime / myTime);
-    printf("Over Double: %.5e\n", 1.0 * doubleTime / myTime);
+    printf("Over Float: %.5f\n", 1.0 * mlibTime / myTime);
+    printf("Over Double: %.5f\n", 1.0 * doubleTime / myTime);
     
     
     count = 0;
@@ -104,8 +104,8 @@ int main(int argc, char** argv) {
         }
     }
     printf("Speedup of interval computation\n");
-    printf("Over Float: %.5e\n", 1.0 * mlibTime / myTime);
-    printf("Over Double: %.5e\n\n", 1.0 * doubleTime / myTime);
+    printf("Over Float: %.5f\n", 1.0 * mlibTime / myTime);
+    printf("Over Double: %.5f\n\n", 1.0 * doubleTime / myTime);
     
     return 0;
 }
