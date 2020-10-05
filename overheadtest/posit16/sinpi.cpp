@@ -1,5 +1,6 @@
 #include "posit16_math.h"
 #include <x86intrin.h>
+#import "positMath.h"
 
 int main(int argc, char** argv) {
     unsigned long long count = 0;

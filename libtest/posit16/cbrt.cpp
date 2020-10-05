@@ -1,6 +1,7 @@
 #import "mpfr.h"
 #import "posit16_math.h"
 #import "softposit.h"
+#import "positMath.h"
 
 #define MPFR_PREC 2000
 mpfr_t mval;

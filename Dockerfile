@@ -57,6 +57,16 @@ RUN git clone https://gitlab.com/cerlane/SoftPosit.git && \
 ENV SOFTPOSITPATH=/home/SoftPosit/
 
 ####################################################################
+# Install SoftPosit-Math
+####################################################################
+RUN https://gitlab.com/cerlane/softposit-math.git && \
+    cd softposit-math/build/ && \
+    ./make.sh && \
+    cd ../..
+
+ENV SOFTPOSITMATHPATH=/home/softposit-math
+
+####################################################################
 # Git Clone POPL21 artifact
 ####################################################################
 RUN git clone https://github.com/jpl169/POPL21-artifact.git
