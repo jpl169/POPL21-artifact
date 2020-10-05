@@ -4,6 +4,7 @@
 #include <map>
 #include <memory>
 #include <inttypes.h>
+#include <type_traits>
 
 #define PI_DOUBLE 3.1415926535897932384626433832795028841971693993751058209749445923078164062
 
@@ -99,9 +100,9 @@ void PolySynth<T, E>::CalcFullIntervals() {
     T x = 0.0;
     uint32_t upperLimit;
     
-    if (std::is_same_v<T, bfloat16>) upperLimit = 0xFF82;
-    else if (std::is_same_v<T, posit16>) upperLimit = 0x10000;
-    else if (std::is_same_v<T, float>) upperLimit = 0xFF800002;
+    if (std::is_same<T, bfloat16>::value) upperLimit = 0xFF82;
+    else if (std::is_same<T, posit16>::value) upperLimit = 0x10000;
+    else if (std::is_same<T, float>::value) upperLimit = 0xFF800002;
     
     for (uint32_t i = 0; i < upperLimit; i++) {
         Helper<T>::HexToValue(x, i);
@@ -229,9 +230,9 @@ bool PolySynth<T, E>::TestAndAddSamplePoints() {
     double lb, ub, intPart;
     T x, y, my;
     
-    if (std::is_same_v<T, bfloat16>) upperLimit = 0x10000;
-    else if (std::is_same_v<T, posit16>) upperLimit = 0x10000;
-    else if (std::is_same_v<T, float>) upperLimit = 0x100000000;
+    if (std::is_same<T, bfloat16>::value) upperLimit = 0x10000;
+    else if (std::is_same<T, posit16>::value) upperLimit = 0x10000;
+    else if (std::is_same<T, float>::value) upperLimit = 0x100000000;
     
     for (; count < upperLimit; count++) {
         Helper<T>::HexToValue(x, count);
@@ -260,9 +261,9 @@ void PolySynth<T, E>::PerformErrorAnalysis() {
     uint64_t wrongCount = 0, count = 0, upperLimit;
     T x, y, my;
     
-    if (std::is_same_v<T, bfloat16>) upperLimit = 0x10000;
-    else if (std::is_same_v<T, posit16>) upperLimit = 0x10000;
-    else if (std::is_same_v<T, float>) upperLimit = 0x100000000;
+    if (std::is_same<T, bfloat16>::value) upperLimit = 0x10000;
+    else if (std::is_same<T, posit16>::value) upperLimit = 0x10000;
+    else if (std::is_same<T, float>::value) upperLimit = 0x100000000;
     
     for (; count < upperLimit; count++) {
         Helper<T>::HexToValue(x, count);

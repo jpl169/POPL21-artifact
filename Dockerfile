@@ -23,6 +23,7 @@ RUN apt-get update && \
 			zlib1g \
 			zlib1g-dev \
 			bc \
+			wget \
 			python \
 			python3 \
 			python3-pip \
