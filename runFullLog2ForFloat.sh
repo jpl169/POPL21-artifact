@@ -13,7 +13,7 @@ echo -e ""
 echo -e "\033[1mTesting float math library correctness \033[0m"
 echo -e "Testing float math library correctness" >> $ResultPath
 echo -e "This may take 2-3 hours to complete"
-cd ../float
+cd libtest/float
 make -s clean
 make -s
 ./runFullInput.sh >> $ResultPath
