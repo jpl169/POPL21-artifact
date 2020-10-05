@@ -59,7 +59,7 @@ ENV SOFTPOSITPATH=/home/SoftPosit/
 ####################################################################
 # Install SoftPosit-Math
 ####################################################################
-RUN https://gitlab.com/cerlane/softposit-math.git && \
+RUN git clone https://gitlab.com/cerlane/softposit-math.git && \
     cd softposit-math/build/ && \
     ./make.sh && \
     cd ../..
