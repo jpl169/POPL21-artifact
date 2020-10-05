@@ -1,5 +1,5 @@
 #include "posit16_math.h"
-#import "positMath.h"
+#include "positMath.h"
 #include <x86intrin.h>
 
 int main(int argc, char** argv) {

@@ -62,8 +62,7 @@ ENV SOFTPOSITPATH=/home/SoftPosit/
 ####################################################################
 RUN git clone https://gitlab.com/cerlane/softposit-math.git && \
     cd softposit-math/build/ && \
-    ./make.sh && \
-    cd ../..
+    ./make.sh && cd ../..
 
 ENV SOFTPOSITMATHPATH=/home/softposit-math
 
