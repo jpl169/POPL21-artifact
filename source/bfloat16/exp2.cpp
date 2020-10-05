@@ -1,5 +1,5 @@
 #include "bfloat16_math.hpp"
-
+#include "exp2.h"
 
 bfloat16 myexp2(bfloat16 x) {
     float fInput = (float)x;
@@ -34,15 +34,15 @@ bfloat16 myexp2(bfloat16 x) {
     }
     
     // Polynomial approximation
-    double y = 1.557767964117490015751865684023869107477366924285888671875e-02;
+    double y = C_1_4;
     y *= fracPart;
-    y += 4.8046547014740259573528646797058172523975372314453125e-02;
+    y += C_1_3;
     y *= fracPart;
-    y += 2.437159431324379121885925769674940966069698333740234375e-01;
+    y += C_1_2;
     y *= fracPart;
-    y += 6.9265463004053107187729665383812971413135528564453125e-01;
+    y += C_1_1;
     y *= fracPart;
-    y += 1.0000091388165410766220020377659238874912261962890625;
+    y += C_1_0;
 
     // Output compensation
     return ldexp(y, intPart);
@@ -82,15 +82,15 @@ double myexp2Internal(float x) {
     }
     
     // Polynomial approximation
-    double y = 1.557767964117490015751865684023869107477366924285888671875e-02;
+    double y = C_1_4;
     y *= fracPart;
-    y += 4.8046547014740259573528646797058172523975372314453125e-02;
+    y += C_1_3;
     y *= fracPart;
-    y += 2.437159431324379121885925769674940966069698333740234375e-01;
+    y += C_1_2;
     y *= fracPart;
-    y += 6.9265463004053107187729665383812971413135528564453125e-01;
+    y += C_1_1;
     y *= fracPart;
-    y += 1.0000091388165410766220020377659238874912261962890625;
+    y += C_1_0;
 
     // Output compensation
     return ldexp(y, intPart);

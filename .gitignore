@@ -1,2 +1,6 @@
 **/*~
 **/.DS_Store
+**/*.pdf
+**/headers
+**/*.txt
+soplex-4.0.1.tar

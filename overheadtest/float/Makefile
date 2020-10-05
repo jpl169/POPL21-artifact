@@ -1,4 +1,4 @@
-CC = g++
+CXX ?= g++
 
 funcNames = myLog2
 
@@ -8,7 +8,7 @@ obj = $(patsubst %, %, $(funcNames))
 all: $(obj)
 
 %: %.cpp
-	$(CC) -std=c++11  -I../../helper/ -I../../include/  $^ ../../lib/floatMathLib.a -lm -o $@
+	$(CXX) -std=c++11  -I../../helper/ -I../../include/  $^ ../../lib/floatMathLib.a -lm -o $@
 
 clean:
 	rm -rf $(obj) *.dSYM

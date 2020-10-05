@@ -1,14 +1,14 @@
 #!/bin/bash
-
+rm -rf headers && mkdir headers
 echo -e "LOG2"
-./Log2
+./Log2 headers/log2.h
 echo -e "LOG"
-./Log
+./Log headers/log.h
 echo -e "LOG10"
-./Log10
+./Log10 headers/log10.h
 echo -e "SINPI"
-./Sinpi
+./Sinpi headers/sinpi.h
 echo -e "COSPI"
-./Cospi
+./Cospi headers/cospi.h
 echo -e "SQRT"
-./Sqrt
+./Sqrt headers/sqrt.h

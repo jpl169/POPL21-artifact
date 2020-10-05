@@ -58,15 +58,16 @@ bool Elementary<T>::FlipLbAndUb(double y) {
 }
 
 int main(int argc, char** argv) {
-    mpfr_init2(mval, 2000);
+    char* headerFileName = 0;
+    if (argc == 2) headerFileName = argv[1];
     
+    mpfr_init2(mval, 2000);
     PolySynth<bfloat16, Elementary<bfloat16>> bf16log10;
     bf16log10.CalcIntervals();
     
     bf16log10.FindPolynomials({1, 3, 5});
     
-    bf16log10.poly->PrintPiecewiseInfo();
-    bf16log10.PerformErrorAnalysis();
+    bf16log10.poly->PrintPiecewiseInfo(headerFileName);
     mpfr_clear(mval);
     return 0;
 }

@@ -50,15 +50,16 @@ bool Elementary<T>::FlipLbAndUb(double modifier) {
 }
 
 int main(int argc, char** argv) {
-    mpfr_init2(mval, 2000);
+    char* headerFileName = 0;
+    if (argc == 2) headerFileName = argv[1];
     
+    mpfr_init2(mval, 2000);
     PolySynth<posit16, Elementary<posit16>> p16log10;
     p16log10.CalcIntervals();
     
     p16log10.FindPolynomials({1, 3, 5, 7, 9});
     
-    p16log10.poly->PrintPiecewiseInfo();
-    p16log10.PerformErrorAnalysis();
+    p16log10.poly->PrintPiecewiseInfo(headerFileName);
     mpfr_clear(mval);
     return 0;
 }

@@ -201,8 +201,10 @@ bool Elementary<T>::FlipLbAndUb(double y) {
 }
 
 int main(int argc, char** argv) {
-    mpfr_init2(mval, 2000);
+    char* headerFileName = 0;
+    if (argc == 2) headerFileName = argv[1];
     
+    mpfr_init2(mval, 2000);
     PolySynth<float, Elementary<float>> fp32log2(SAMPLE, 5000);
     fp32log2.SetUpSamplingOption(0.99, 1.01);
     fp32log2.CalcIntervals();
@@ -225,8 +227,7 @@ int main(int argc, char** argv) {
     
     } while (fp32log2.TestAndAddSamplePoints());
 
-    fp32log2.poly->PrintPiecewiseInfo();
-    fp32log2.PerformErrorAnalysis();
+    fp32log2.poly->PrintPiecewiseInfo(headerFileName);
     mpfr_clear(mval);
     return 0;
 }

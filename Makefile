@@ -1,4 +1,4 @@
-CC = g++
+CXX ?= g++
 
 bf16FNames = log log2 log10 sinpi cospi sqrt cbrt exp exp2 exp10
 p16FNames = cospi log log2 log10 sinpi sqrt
@@ -23,7 +23,7 @@ all: $(libDir)/bfloat16MathLib.a $(libDir)/posit16MathLib.a $(libDir)/floatMathL
 
 $(bf16ObjDir)/%.o: $(bf16SrcDir)/%.cpp
 	@mkdir -p $(bf16ObjDir)
-	$(CC) -std=c++11 -O3 -c $^ -Iinclude/ -Ihelper -o $@
+	$(CXX) -std=c++11 -O3 -c $^ -Iinclude/ -Ifunctiongen/bfloat16/full/headers -Ihelper -o $@
 
 $(libDir)/bfloat16MathLib.a: $(bf16Obj)
 	@mkdir -p $(libDir)
@@ -31,7 +31,7 @@ $(libDir)/bfloat16MathLib.a: $(bf16Obj)
 
 $(p16ObjDir)/%.o: $(p16SrcDir)/%.cpp
 	@mkdir -p $(p16ObjDir)
-	$(CC) -std=c++11 -O3 -c $^ -Iinclude/ -I$(SOFTPOSITPATH)/source/include -o $@
+	$(CXX) -std=c++11 -O3 -c $^ -Iinclude/ -Ifunctiongen/posit16/full/headers -I$(SOFTPOSITPATH)/source/include -o $@
 
 $(libDir)/posit16MathLib.a: $(p16Obj)
 	@mkdir -p $(libDir) 
@@ -39,7 +39,7 @@ $(libDir)/posit16MathLib.a: $(p16Obj)
 
 $(floatObjDir)/%.o: $(floatSrcDir)/%.cpp
 	@mkdir -p $(floatObjDir)
-	$(CC) -std=c++11 -O3 -c $^ -Iinclude/ -Ihelper -o $@
+	$(CXX) -std=c++11 -O3 -c $^ -Iinclude/ -Ifunctiongen/float/sampling/headers -Ihelper -o $@
 
 $(libDir)/floatMathLib.a: $(floatObj)
 	@mkdir -p $(libDir)

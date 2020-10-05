@@ -1,4 +1,5 @@
 #include "bfloat16_math.hpp"
+#include "sinpi.h"
 
 bfloat16 mysinpi(bfloat16 x) {
     if ((x.val & 0x7FFF) > 0x7F80) {
@@ -40,17 +41,17 @@ bfloat16 mysinpi(bfloat16 x) {
     }
     double fracPart = frac;
     double y = 0;
-    if (fracPart <= 0.006011962890625) {
-        y = 3.14159292035398163278614447335712611675262451171875 * fracPart;
+    if (fracPart <= R_1_ub) {
+        y = C_1_1 * fracPart;
     } else {
         double xSquared = fracPart * fracPart;
-        y = -4.43008519856437021910977591687696985900402069091796875e-01;
+        y = C_2_7;
         y *= xSquared;
-        y += 2.50692180297728217652775128954090178012847900390625;
+        y += C_2_5;
         y *= xSquared;
-        y += -5.16405991738943459523625278961844742298126220703125;
+        y += C_2_3;
         y *= xSquared;
-        y += 3.141515487020253072358855206402949988842010498046875;
+        y += C_2_1;
         y *= fracPart;
     }
     
@@ -94,17 +95,17 @@ double mysinpiInternal(float x) {
     }
     double fracPart = frac;
     double y = 0;
-    if (fracPart <= 0.006011962890625) {
-        y = 3.14159292035398163278614447335712611675262451171875 * fracPart;
+    if (fracPart <= R_1_ub) {
+        y = C_1_1 * fracPart;
     } else {
         double xSquared = fracPart * fracPart;
-        y = -4.43008519856437021910977591687696985900402069091796875e-01;
+        y = C_2_7;
         y *= xSquared;
-        y += 2.50692180297728217652775128954090178012847900390625;
+        y += C_2_5;
         y *= xSquared;
-        y += -5.16405991738943459523625278961844742298126220703125;
+        y += C_2_3;
         y *= xSquared;
-        y += 3.141515487020253072358855206402949988842010498046875;
+        y += C_2_1;
         y *= fracPart;
     }
     

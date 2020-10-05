@@ -4,6 +4,7 @@
 #include "soplex.h"
 #include <memory>
 #include <algorithm>
+#include "stdio.h"
 
 using namespace std;
 using namespace soplex;
@@ -22,6 +23,7 @@ class Poly {
     
     Poly(int, vector<int>&);
     void PrintPolyInfo();
+    void PrintPolyInfo(FILE*, int);
 };
 
 class PolyFinder {
@@ -53,7 +55,7 @@ class PolyFinder {
     double PolyEval(double);
     double PolyEval(double, unique_ptr<Poly>&);
     
-    void PrintPiecewiseInfo();
+    void PrintPiecewiseInfo(char*);
 };
 
 

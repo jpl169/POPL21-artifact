@@ -61,15 +61,16 @@ bool Elementary<T>::FlipLbAndUb(double y) {
 }
 
 int main(int argc, char** argv) {
-    mpfr_init2(mval, 2000);
+    char* headerFileName = 0;
+    if (argc == 2) headerFileName = argv[1];
     
+    mpfr_init2(mval, 2000);
     PolySynth<bfloat16, Elementary<bfloat16>> bf16sqrt;
     bf16sqrt.CalcIntervals();
     
     bf16sqrt.FindPolynomials({0, 1, 2, 3, 4});
     
-    bf16sqrt.poly->PrintPiecewiseInfo();
-    bf16sqrt.PerformErrorAnalysis();
+    bf16sqrt.poly->PrintPiecewiseInfo(headerFileName);
     mpfr_clear(mval);
     return 0;
 }

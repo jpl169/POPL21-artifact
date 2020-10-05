@@ -1,22 +1,22 @@
 #!/bin/bash
-
+rm -rf headers && mkdir headers
 echo -e "EXP FUNCTION"
-./Exp
+./Exp headers/exp.h
 echo -e "EXP2 FUNCTION"
-./Exp2
+./Exp2 headers/exp2.h
 echo -e "EXP10 FUNCTION"
-./Exp10
+./Exp10  headers/exp10.h
 echo -e "LOG FUNCTION"
-./Log
+./Log headers/log.h
 echo -e "LOG2 FUNCTION"
-./Log2
+./Log2 headers/log2.h
 echo -e "LOG10 FUNCTION"
-./Log10
+./Log10 headers/log10.h
 echo -e "SINPI FUNCTION"
-./Sinpi
+./Sinpi headers/sinpi.h
 echo -e "COSPI FUNCTION"
-./Cospi
+./Cospi headers/cospi.h
 echo -e "CBRT FUNCTION"
-./Cbrt
+./Cbrt headers/cbrt.h
 echo -e "SQRT FUNCTION"
-./Sqrt
+./Sqrt headers/sqrt.h

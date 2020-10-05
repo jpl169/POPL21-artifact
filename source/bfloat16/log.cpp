@@ -1,4 +1,5 @@
 #include "bfloat16_math.hpp"
+#include "log.h"
 
 bfloat16 mylog(bfloat16 x) {
     // If x == 0, then it should be -inf
@@ -32,13 +33,13 @@ bfloat16 mylog(bfloat16 x) {
     double codyX2 = codyX * codyX;
     
     // Now compute polynomial
-    double y = 1.2722152807088404902202682933420874178409576416015625;
+    double y = C_1_7;
     y *= codyX2;
-    y += 3.91172520217394070751737444879836402833461761474609375e-01;
+    y += C_1_5;
     y *= codyX2;
-    y += 9.749438269300123582894457285874523222446441650390625e-01;
+    y += C_1_3;
     y *= codyX2;
-    y += 2.885102725620722008414986703428439795970916748046875;
+    y += C_1_1;
     y *= codyX;
     
     // Range propagation
@@ -80,13 +81,13 @@ double mylogInternal(float x) {
     double codyX2 = codyX * codyX;
     
     // Now compute polynomial
-    double y = 1.2722152807088404902202682933420874178409576416015625;
+    double y = C_1_7;
     y *= codyX2;
-    y += 3.91172520217394070751737444879836402833461761474609375e-01;
+    y += C_1_5;
     y *= codyX2;
-    y += 9.749438269300123582894457285874523222446441650390625e-01;
+    y += C_1_3;
     y *= codyX2;
-    y += 2.885102725620722008414986703428439795970916748046875;
+    y += C_1_1;
     y *= codyX;
     
     // Range propagation

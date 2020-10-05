@@ -68,8 +68,10 @@ bool Elementary<T>::FlipLbAndUb(double modifier) {
 }
 
 int main(int argc, char** argv) {
-    mpfr_init2(mval, 2000);
+    char* headerFileName = 0;
+    if (argc == 2) headerFileName = argv[1];
     
+    mpfr_init2(mval, 2000);
     PolySynth<posit16, Elementary<posit16>> p16cospi;
     p16cospi.CalcIntervals();
     
@@ -77,8 +79,7 @@ int main(int argc, char** argv) {
     p16cospi.FindPolynomialsUntil({0, 2, 4, 6, 8}, 12287);
     p16cospi.FindPolynomials({0});
     
-    p16cospi.poly->PrintPiecewiseInfo();
-    p16cospi.PerformErrorAnalysis();
+    p16cospi.poly->PrintPiecewiseInfo(headerFileName);
     mpfr_clear(mval);
     return 0;
 }

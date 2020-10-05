@@ -22,7 +22,12 @@ RUN apt-get update && \
 			libmpfr-dev \
 			zlib1g \
 			zlib1g-dev \
-			bc
+			bc \
+			python \
+			python3 \
+			python3-pip \
+			emacs && \
+    python3 -m pip install -U matplotlib
 
 WORKDIR /home
 

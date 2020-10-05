@@ -21,6 +21,16 @@ void Poly::PrintPolyInfo() {
     printf("\n");
 }
 
+void Poly::PrintPolyInfo(FILE* f, int num) {
+    fprintf(f, "#define R_%d_lb %.100e\n", num, xlb);
+    fprintf(f, "#define R_%d_ub %.100e\n", num, xub);
+    
+    for (int j = 0; j < termSize; j++) {
+        fprintf(f, "#define C_%d_%d %.100e\n", num, power[j], coeffs[j]);
+    }
+    fprintf(f, "\n");
+}
+
 /*############################################################################
  PolyFinder
  #############################################################################*/
@@ -307,10 +317,20 @@ int PolyFinder::FindPolynomialsUntilBefore(vector<int>& power, double val) {
     return 0;
 }
 
-void PolyFinder::PrintPiecewiseInfo() {
-    printf("PIECEWISE POLYNOMIAL\n");
-    for (auto const& poly : piecewise) {
-        poly->PrintPolyInfo();
+void PolyFinder::PrintPiecewiseInfo(char* fileName) {
+    if (fileName == 0) {
+        printf("PIECEWISE POLYNOMIAL\n");
+        for (auto const& poly : piecewise) {
+            poly->PrintPolyInfo();
+        }
+    } else {
+        FILE* f = fopen(fileName, "w");
+        int count = 1;
+        for (auto const& poly : piecewise) {
+            poly->PrintPolyInfo(f, count);
+            count++;
+        }
+        fclose(f);
     }
 }
 

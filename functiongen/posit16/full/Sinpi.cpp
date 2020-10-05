@@ -70,16 +70,17 @@ bool Elementary<T>::FlipLbAndUb(double modifier) {
 }
 
 int main(int argc, char** argv) {
-    mpfr_init2(mval, 2000);
+    char* headerFileName = 0;
+    if (argc == 2) headerFileName = argv[1];
     
+    mpfr_init2(mval, 2000);
     PolySynth<posit16, Elementary<posit16>> p16Sinpi;
     p16Sinpi.CalcIntervals();
     
     p16Sinpi.FindPolynomialOnce({1});
     p16Sinpi.FindPolynomials({1, 3, 5, 7, 9});
     
-    p16Sinpi.poly->PrintPiecewiseInfo();
-    p16Sinpi.PerformErrorAnalysis();
+    p16Sinpi.poly->PrintPiecewiseInfo(headerFileName);
     mpfr_clear(mval);
     return 0;
 }

@@ -1,4 +1,5 @@
 #include "bfloat16_math.hpp"
+#include "cospi.h"
 
 bfloat16 mycospi(bfloat16 x) {
     if ((x.val & 0x7FFF) > 0x7F80) {
@@ -39,19 +40,19 @@ bfloat16 mycospi(bfloat16 x) {
     
     double fracPart = frac;
     double y = 0;
-    if (fracPart <= 0.01989746093750000000) {
-        y = 1.00390625;
-    } else if (fracPart < 0.5f) {
+    if (fracPart <= R_1_ub) {
+        y = C_1_0;
+    } else if (fracPart < R_3_lb) {
         double xSquared = fracPart * fracPart;
-        y = -1.1640167711700171171429474270553328096866607666015625;
+        y = C_2_6;
         y *= xSquared;
-        y += 4.02150995405109146219047033810056746006011962890625;
+        y += C_2_4;
         y *= xSquared;
-        y += -4.9324802047472200428046562592498958110809326171875;
+        y += C_2_2;
         y *= xSquared;
-        y += 9.9997996859304827399483883709763176739215850830078125e-01;
+        y += C_2_0;
     } else {
-        y = 0.0f;
+        y = C_3_0;
     }
     
     return y * modifier;
@@ -93,19 +94,19 @@ double mycospiInternal(float x) {
     
     double fracPart = frac;
     double y = 0;
-    if (fracPart <= 0.01989746093750000000) {
-        y = 1.00390625;
-    } else if (fracPart < 0.5f) {
+    if (fracPart <= R_1_ub) {
+        y = C_1_0;
+    } else if (fracPart < R_3_lb) {
         double xSquared = fracPart * fracPart;
-        y = -1.1640167711700171171429474270553328096866607666015625;
+        y = C_2_6;
         y *= xSquared;
-        y += 4.02150995405109146219047033810056746006011962890625;
+        y += C_2_4;
         y *= xSquared;
-        y += -4.9324802047472200428046562592498958110809326171875;
+        y += C_2_2;
         y *= xSquared;
-        y += 9.9997996859304827399483883709763176739215850830078125e-01;
+        y += C_2_0;
     } else {
-        y = 0.0f;
+        y = C_3_0;
     }
     
     return y * modifier;
