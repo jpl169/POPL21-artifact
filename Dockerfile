@@ -6,7 +6,7 @@ ARG soplex401TarFile=/Users/jay/Research/soplex-4.0.1.tar
 
 ##################################################################
 
-FROM ubuntu:18.04
+FROM ubuntu:16.04
 
 ENV DEBIAN_FRONTEND noninteractive
 
@@ -28,7 +28,8 @@ RUN apt-get update && \
 			python3 \
 			python3-pip \
 			emacs && \
-    python3 -m pip install -U matplotlib
+    pip3 install --upgrade pip && \
+    python3 -m pip install matplotlib
 
 WORKDIR /home
 
